@@ -1,0 +1,21 @@
+---
+- hosts: all
+  gather_facts: true
+  become: true
+  become_user: root
+  tasks:
+    - apt:
+        name: git
+      register: install
+
+    - name: Show git installation
+      debug:
+        msg: "{{ install }}"
+
+    - name: Check if git is installed
+      command: dpkg -s git
+      register: deb_check
+
+    - name: Show deb_check
+      debug:
+        msg: "{{ deb_check }}"
